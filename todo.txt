@@ -1,0 +1,8 @@
+- create a cmd app
+    - offers four options
+        - save new key pair
+        - display all key pairs
+        - search
+        - quit
+
+- add authentication
