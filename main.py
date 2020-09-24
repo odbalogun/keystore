@@ -4,11 +4,17 @@ KEYSTORE = 'keystore.txt'
 
 
 def line_break():
-    print("*"*30)
+    print("-"*30)
 
 
 def display_key_pairs():
-    pass
+    ensure_keystore_exists()
+    keystore_lines = open(KEYSTORE, 'r')
+
+    for line in keystore_lines.readlines():
+        print(line)
+    keystore_lines.close()
+    line_break()
 
 
 def ensure_keystore_exists():
@@ -18,10 +24,10 @@ def ensure_keystore_exists():
 
 
 def add_key_pair(key, value):
-    # todo check that key does not already exist
     ensure_keystore_exists()
+    # todo check that key does not already exist
     try:
-        with open(KEYSTORE, 'w+') as keystore_file:
+        with open(KEYSTORE, 'a') as keystore_file:
             keystore_file.write(f"{key.upper()}: {value}")
             keystore_file.write("\n")
     except IOError:
