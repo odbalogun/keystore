@@ -1,9 +1,34 @@
+import os
+
+KEYSTORE = 'keystore.txt'
+
+
 def line_break():
     print("*"*30)
 
 
 def display_key_pairs():
     pass
+
+
+def ensure_keystore_exists():
+    if os.path.isfile(KEYSTORE):
+        return
+    open(KEYSTORE, 'a').close()
+
+
+def add_key_pair(key, value):
+    # todo check that key does not already exist
+    ensure_keystore_exists()
+    try:
+        with open(KEYSTORE, 'w+') as keystore_file:
+            keystore_file.write(f"{key.upper()}: {value}")
+            keystore_file.write("\n")
+    except IOError:
+        print(f"Could not write to {KEYSTORE}. Ensure file is writable")
+        print("Exiting.....")
+        exit()
+    print("Success. Keystore has been updated")
 
 
 print("Welcome to the Key Store")
@@ -33,6 +58,7 @@ while loop:
             key = input("Enter your key: ")
             value = input("Enter its corresponding value: ")
             # save key pair
+            add_key_pair(key, value)
         elif selection == 2:
             display_key_pairs()
         elif selection == 3:

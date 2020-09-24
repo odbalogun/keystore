@@ -6,3 +6,4 @@
         - quit
 
 - add authentication
+- add delete
