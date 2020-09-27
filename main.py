@@ -8,7 +8,6 @@ def line_break():
 
 
 def display_key_pairs():
-    ensure_keystore_exists()
     keystore_lines = open(KEYSTORE, 'r')
 
     for line in keystore_lines.readlines():
@@ -23,8 +22,22 @@ def ensure_keystore_exists():
     open(KEYSTORE, 'a').close()
 
 
+def search_keys(needle):
+    keystore_lines = open(KEYSTORE, 'r')
+    found = 0
+
+    for line in keystore_lines.readlines():
+        if line.startswith(needle.upper()):
+            print(line)
+            found += 1
+
+    if found:
+        print(f"{found} result(s) found")
+    else:
+        print("No results found")
+
+
 def add_key_pair(key, value):
-    ensure_keystore_exists()
     # todo check that key does not already exist
     try:
         with open(KEYSTORE, 'a') as keystore_file:
@@ -37,6 +50,7 @@ def add_key_pair(key, value):
     print("Success. Keystore has been updated")
 
 
+ensure_keystore_exists()
 print("Welcome to the Key Store")
 line_break()
 input_options = [1, 2, 3, 4]
@@ -69,3 +83,4 @@ while loop:
             display_key_pairs()
         elif selection == 3:
             needle = input("Enter the key you want to retrieve: ")
+            search_keys(needle)
